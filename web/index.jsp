@@ -14,12 +14,11 @@
         <title>Bienvenue sur Predict'IF</title>
     </head>
     <body>
-        <h1>Bonjour et bienvenue sur le site web de Predict'IF, votre médium en ligne !</h1>
-        <a href="http://localhost:8080/PredictifWeb/ActionServlet?todo=VoirListeMedium">Page d'accueil</a>
-        <br/>
-        <br/>
-        
-        
-
+        <h1>Bonjour et veuillez vous connecter !</h1>
+        <form action="http://localhost:8080/PredictifWeb/ActionServlet?todo=ConnectionEmploye" method="POST">
+            <input type="text" id="login" name="login"/>
+            <input type="submit" name="Validation" value="Ok"/>
+        </form>
+         
     </body>
 </html>

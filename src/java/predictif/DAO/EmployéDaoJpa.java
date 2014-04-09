@@ -39,7 +39,7 @@ public class EmployéDaoJpa implements EmployéDao {
     @Override
     public Employé findEmployeById(int id) {
          Query query = JPAutil.obtenirEntityManager().createQuery("select e from"
-                + " Employé e where e.Id = :id");
+                + " Employé e where e.id = :id");
          query.setParameter("id", id  );
         return  (Employé) query.getSingleResult();
     }

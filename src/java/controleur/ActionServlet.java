@@ -7,12 +7,14 @@ package controleur;
 
 import controleur.actions.Action;
 import controleur.actions.ListeMediumAction;
+import controleur.actions.LoginEmploye;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import predictif.service.Service;
 
 /**
@@ -26,20 +28,16 @@ public class ActionServlet extends HttpServlet {
     
     protected void processRequest (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        
         String tache = request.getParameter("todo");
         Action action = this.getAction(tache);
         action.setServiceMetier(this.getServiceMetier());
         action.execute(request);
         String vue = this.setVue(tache);
-        System.out.println(vue);
+        System.out.println ("Hello");        
         request.getRequestDispatcher(vue).forward(request, response);
         
-    
     }
         
-    
-    
     
     public Service getServiceMetier ()
     {
@@ -58,6 +56,10 @@ public class ActionServlet extends HttpServlet {
         {
             action = new ListeMediumAction();
         }
+        else if ("ConnectionEmploye".equals (todo))
+        {
+            action = new LoginEmploye();
+        }
         
         return action;
     }
@@ -68,6 +70,10 @@ public class ActionServlet extends HttpServlet {
         if ("VoirListeMedium".equals (todo))
         {
             vue = "VueListeMedium.jsp";
+        }
+        else if ("ConnectionEmploye".equals (todo))
+        {
+            vue = "VueLoggedIn.jsp";
         }
         return vue;
     }
@@ -100,7 +106,9 @@ public class ActionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         processRequest(request, response);
+        
     }
 
     /**

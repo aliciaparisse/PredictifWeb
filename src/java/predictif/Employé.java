@@ -67,5 +67,9 @@ public class Employé implements Serializable {
     public List<Client> getClients() {
         return clients;
     }
+
+    public String getLogin() {
+        return login;
+    }
     
 }
