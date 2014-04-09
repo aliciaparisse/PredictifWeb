@@ -20,12 +20,12 @@ import predictif.Medium;
 public class ListeMediumVue extends HttpServlet {
 
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.service(req, resp);
+    protected void service(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
+        super.service(request, resp);
         resp.setContentType("text/hmtl;charset=UTF-8");
         PrintWriter out = resp.getWriter();
         //etc
-        List<Medium> liste = (List<Medium>)req.getAttribute("listeMediumVue");
+        List<Medium> liste = (List<Medium>)request.getAttribute("listeMedium");
         for (Medium m : liste)
                 out.println(m.getNom());
                 out.println();

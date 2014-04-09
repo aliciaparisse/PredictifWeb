@@ -12,10 +12,6 @@
         <servlet-name>ActionServlet</servlet-name>
         <url-pattern>/ActionServlet</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ListeMediumVue</servlet-name>
-        <url-pattern>/ListeMediumVue</url-pattern>
-    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

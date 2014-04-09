@@ -18,7 +18,7 @@ public class ListeMediumAction extends Action {
     public void execute(HttpServletRequest requete) {
         List<Medium> listMedium = service.ObtenirToutMedium();
         
-        requete.setAttribute("Liste de Mediums", listMedium);
+        requete.setAttribute("listeMedium", listMedium);
         
     }
     

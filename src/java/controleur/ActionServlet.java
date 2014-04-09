@@ -24,38 +24,20 @@ public class ActionServlet extends HttpServlet {
     private Service service;
     
     
-    /**
-     * Processes requests for both HTTP
-     * <code>GET</code> and
-     * <code>POST</code> methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    protected void processRequest (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+        
+        String tache = request.getParameter("todo");
+        Action action = this.getAction(tache);
+        action.setServiceMetier(this.getServiceMetier());
+        action.execute(request);
+        String vue = this.setVue(tache);
+        System.out.println(vue);
+        request.getRequestDispatcher(vue).forward(request, response);
+        
     
-    
-    
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-            // TODO output your page here. You may use following sample code.
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ActionServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ActionServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } finally {            
-            out.close();
-        }
     }
-    
+        
     
     
     
@@ -72,7 +54,7 @@ public class ActionServlet extends HttpServlet {
     {
         Action action = null;
         
-        if ("afficherListeMedium".equals (todo))
+        if ("VoirListeMedium".equals (todo))
         {
             action = new ListeMediumAction();
         }
@@ -83,7 +65,7 @@ public class ActionServlet extends HttpServlet {
     private String setVue (String todo)
     {
         String vue = null;
-        if ("voirListeMedium".equals (todo))
+        if ("VoirListeMedium".equals (todo))
         {
             vue = "VueListeMedium.jsp";
         }
