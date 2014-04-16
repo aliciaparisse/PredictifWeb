@@ -43,6 +43,10 @@ public class Medium implements Serializable {
     public String getNom() {
         return nom;
     }
+
+    public String getTalent() {
+        return talent;
+    }
     
     
 }

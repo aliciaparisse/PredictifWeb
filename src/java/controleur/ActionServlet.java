@@ -6,6 +6,7 @@ package controleur;
  */
 
 import controleur.actions.Action;
+import controleur.actions.ClientRegister;
 import controleur.actions.ListeMediumAction;
 import controleur.actions.LoginEmploye;
 import java.io.IOException;
@@ -32,8 +33,7 @@ public class ActionServlet extends HttpServlet {
         Action action = this.getAction(tache);
         action.setServiceMetier(this.getServiceMetier());
         action.execute(request);
-        String vue = this.setVue(tache);
-        System.out.println ("Hello");        
+        String vue = this.setVue(tache);    
         request.getRequestDispatcher(vue).forward(request, response);
         
     }
@@ -61,6 +61,11 @@ public class ActionServlet extends HttpServlet {
             action = new LoginEmploye();
         }
         
+        else if ("InscriptionClient".equals(todo))
+        {
+            action = new ClientRegister();
+        }
+        
         return action;
     }
     
@@ -74,6 +79,11 @@ public class ActionServlet extends HttpServlet {
         else if ("ConnectionEmploye".equals (todo))
         {
             vue = "VueLoggedIn.jsp";
+        }
+        
+        else if ("InscriptionClient".equals(todo))
+        {
+            vue ="VueChoixMedium.jsp";
         }
         return vue;
     }

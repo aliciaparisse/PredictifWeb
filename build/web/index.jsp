@@ -16,7 +16,7 @@
     <body>
         <h1>Bonjour et veuillez vous connecter !</h1>
         <form action="http://localhost:8080/PredictifWeb/ActionServlet?todo=ConnectionEmploye" method="POST">
-            <input type="text" id="login" name="login"/>
+            <input type="text" name="login"/>
             <input type="submit" name="Validation" value="Ok"/>
         </form>
          

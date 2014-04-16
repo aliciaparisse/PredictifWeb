@@ -3,10 +3,8 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
-import predictif.Medium;
-import java.util.List;
 
-public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class InscriptionPageClient_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -46,21 +44,35 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("\n");
       out.write("\n");
-      out.write("\n");
-      out.write("\n");
       out.write("<!DOCTYPE html>\n");
       out.write("<html>\n");
       out.write("    <head>\n");
       out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n");
-      out.write("        <title>Bienvenue sur Predict'IF</title>\n");
+      out.write("        <title>Inscription Page Client</title>\n");
       out.write("    </head>\n");
       out.write("    <body>\n");
-      out.write("        <h1>Bonjour et veuillez vous connecter !</h1>\n");
-      out.write("        <form action=\"http://localhost:8080/PredictifWeb/ActionServlet?todo=ConnectionEmploye\" method=\"POST\">\n");
-      out.write("            <input type=\"text\" name=\"login\"/>\n");
-      out.write("            <input type=\"submit\" name=\"Validation\" value=\"Ok\"/>\n");
+      out.write("        Inscription <br>\n");
+      out.write("        <form action=\"http://localhost:8080/PredictifWeb/ActionServlet?todo=InscriptionClient\" method=\"POST\">\n");
+      out.write("        \n");
+      out.write("            <select name=\"civility\">\n");
+      out.write("                <option>Mme </option>\n");
+      out.write("                <option>Melle</option>\n");
+      out.write("                <option>Mr</option>\n");
+      out.write("            </select>\n");
+      out.write("        \n");
+      out.write("            Nom :<input type=\"text\" name=\"name\" value=\"\" size=\"30\" /><br>\n");
+      out.write("            Prénom :<input type=\"text\" name =\"firstName\"  value=\"\" size=\"30\" /><br>\n");
+      out.write("            Adresse mail :<input type=\"text\" name=\"mailAdress\"  value=\"\" size=\"50\" /><br>\n");
+      out.write("            Adresse Postale<textarea name =\"postAdress\"  rows=\"4\" cols=\"30\">\n");
+      out.write("            </textarea><br>\n");
+      out.write("            Date de Naissance(Format aaaammjj) : <input type=\"text\" name =\"birthDate\"  value=\"\" size=\"30\" /><br>\n");
+      out.write("            Téléphone :<input type=\"text\" name =\"phone\"  value=\"\" size=\"30\" /><br>\n");
+      out.write("            <input type=\"checkbox\" name =\"commercial\" value=\"ON\" checked=\"checked\"/> J'accepte de recevoir des offres de nos partenaires commerciaux<br>\n");
+      out.write("            <input type=\"checkbox\" name =\"utilisation\"  value=\"ON\" checked=\"checked\" /> J'accepte les conditions d'utilisations de ce service\n");
+      out.write("            <input type=\"submit\" value=\"Etape suivante\" name=\"registerInBdd\" />\n");
+      out.write("        \n");
       out.write("        </form>\n");
-      out.write("         \n");
+      out.write("        \n");
       out.write("    </body>\n");
       out.write("</html>\n");
     } catch (Throwable t) {
