@@ -13,6 +13,6 @@
     </head>
     <body>
         <h1>Jean Marchal</h1>
-        <a href="http://localhost:8080/PredictifWeb/ActionServlet?todo=InscriptionClient">Retour au choix du Medium</a>
+        
     </body>
 </html>

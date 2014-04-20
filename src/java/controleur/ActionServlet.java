@@ -6,6 +6,7 @@ package controleur;
  */
 
 import controleur.actions.Action;
+import controleur.actions.ChooseMedium;
 import controleur.actions.ClientRegister;
 import controleur.actions.ListeMediumAction;
 import controleur.actions.LoginEmploye;
@@ -24,14 +25,16 @@ import predictif.service.Service;
  */
 public class ActionServlet extends HttpServlet {
 
-    private Service service;
+    private Service service = null;
     
     
     protected void processRequest (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         String tache = request.getParameter("todo");
         Action action = this.getAction(tache);
+        System.out.print("hello there");
         action.setServiceMetier(this.getServiceMetier());
+        System.out.print("hello this");
         action.execute(request);
         String vue = this.setVue(tache);    
         request.getRequestDispatcher(vue).forward(request, response);
@@ -41,8 +44,10 @@ public class ActionServlet extends HttpServlet {
     
     public Service getServiceMetier ()
     {
+        System.out.print("hello now");
         if (service == null)
         {
+            System.out.print("hello then");
             service = new Service();
         }
         return service;
@@ -65,7 +70,11 @@ public class ActionServlet extends HttpServlet {
         {
             action = new ClientRegister();
         }
-        
+        else if ("DisplayMedium".equals(todo))
+        {
+            action = new ChooseMedium();
+        }
+            
         return action;
     }
     
@@ -84,6 +93,11 @@ public class ActionServlet extends HttpServlet {
         else if ("InscriptionClient".equals(todo))
         {
             vue ="VueChoixMedium.jsp";
+        }
+        
+        else if ("DisplayMedium".equals(todo))
+        {
+            vue = "ConfirmationInscriptionPage.jsp";
         }
         return vue;
     }
