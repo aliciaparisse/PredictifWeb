@@ -34,11 +34,17 @@ public class ClientRegister extends Action {
          {
           publi = true;
          }
-         Client myClient = new Client(publi,nomClient, prenomClient, civiliteClient, adresseClient, numeroClient, mailClient, anneeClient, moisClient, jourClient, null);          
+         
+         Client myClient = null;
+         if (utilisation != null)
+         {
+         myClient = new Client(publi,nomClient, prenomClient, civiliteClient, adresseClient, numeroClient, mailClient, anneeClient, moisClient, jourClient, null);          
          System.out.println(myClient.getNom());
          service.CreerClient(myClient);
+         }
          requete.setAttribute("clientTreated", myClient);
          requete.setAttribute("serviceUsed", service);
+         requete.setAttribute("conf", utilisation);
      }
     
 }
