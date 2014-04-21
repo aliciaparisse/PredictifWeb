@@ -34,9 +34,9 @@
         <%
             if (session.getAttribute("user") != null)
             {
-                if(request.getAttribute("listeClient") != null) 
+                if(session.getAttribute("listeClient") != null) 
                 {
-                    List<Client> listClient = (List<Client>) request.getAttribute("listeClient");
+                    List<Client> listClient = (List<Client>) session.getAttribute("listeClient");
                     for (int i=0; i < listClient.size(); i++)
                     {
                         out.print("<tr>");
@@ -50,9 +50,9 @@
             {
                 if (request.getAttribute("employeExiste") == "oui")
                 {
-                    if(request.getAttribute("listeClient") != null) 
+                    if(session.getAttribute("listeClient") != null) 
                     {
-                        List<Client> listClient = (List<Client>) request.getAttribute("listeClient");
+                        List<Client> listClient = (List<Client>) session.getAttribute("listeClient");
                         for (int i=0; i < listClient.size(); i++)
                         {
                             out.print("<tr>");

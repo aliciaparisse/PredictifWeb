@@ -20,8 +20,8 @@
         <form action="ActionServlet?todo=AfficherDernierHoroscope" method="POST">
             <p>
                 <%
+                    // Récupération du client en cours de traitement
                     Client clientTraite = (Client) session.getAttribute("leClient");
-                    System.out.println(clientTraite.getNom());
                 %>
 
                 Nom: <input type="text" name="nomClient" value="<%out.print(clientTraite.getNom());%>"/> 
@@ -45,6 +45,7 @@
             Choix du médium: 
             <select name="selectMedium" size="nbMedium">
                 <%
+                    // Affiche la liste des médiums préférés du client en cours de traitement
                     List<Medium> listMediums = clientTraite.getMediumPreferes();
                     for (int i=0; i<listMediums.size();i++)
                     {
@@ -55,6 +56,7 @@
         </p>
         <!--
         <p>
+            <!-- Non pris en compte par les services donc on laisse de côté >
             Prédiction Travail: </br>
            <select name="predictionTravailForce" size="nbForceTravail"></select>
              <select name="predictionTravailReference" size="nbReferenceTravail"></select>
@@ -81,36 +83,40 @@
         <div>
             <textarea name="zoneAffichage" cols="40" row="20">
                 <%
-                    String boutonAppuye = (String) request.getAttribute("boutonAppuye");
-                    if (request.getAttribute("boutonAppuye") != null)
-                    {
-                        if (boutonAppuye.equals("oui"))
-                        {
-                            List<Horoscope> listHo = clientTraite.getHoroscopePrecedent();
-                            if (listHo.size() != 0)
-                            {
-                                Horoscope dernierHo = listHo.get(listHo.size()-1);
-                                out.print(dernierHo.CorpsHoroscope());
-                            }
-                            else
-                                out.print("Ce client ne possède pas encore d'horoscopes");
-                        }
-                    }
+                    // Récupération du corps de l'horoscope à afficher
+                    if (request.getAttribute("corpsHo") != null)
+                        out.print((String) request.getAttribute("corpsHo"));                            
                 %>
             </textarea>
             
-            <form action="ActionServlet?todo=HoroscopeSuivant" method="POST">
-                <input type="submit" name="horoscopePrecedent" value="Précédent" 
-                       <% if (request.getAttribute("boutonAppuye") != null)
-                           if (!boutonAppuye.equals("oui")) out.print("disabled");
-                       %>/>
+            <form action="ActionServlet?todo=HoroscopePrecedent" method="POST">
+                <%   
+                    // On désactive le bouton s'il n'est pas utilisable pour la suite
+                    if (request.getAttribute("allowPrecedent") != null)
+                    {
+                        if (request.getAttribute("allowPrecedent").equals("oui"))
+                            out.print("<input type=\"submit\" name=\"horoscopePrecedent\" value=\"Précédent\"/>");
+                        else
+                            out.print("<input type=\"submit\" name=\"horoscopePrecedent\" value=\"Précédent\" disabled/>");
+                    }
+                    else
+                        out.print("<input type=\"submit\" name=\"horoscopePrecedent\" value=\"Précédent\" disabled");
+                %>
             </form>
             
-            <form action="ActionServlet?todo=HoroscopePrecedent" method="POST">
-                <input type="submit" name="horoscopeSuivant" value="Suivant" 
-                       <% if (request.getAttribute("boutonAppuye") != null)
-                           if (!boutonAppuye.equals("oui")) out.print("disabled");
-                       %>/>
+            <form action="ActionServlet?todo=HoroscopeSuivant" method="POST">
+                <%   
+                    // On désactive le bouton s'il n'est pas utilisable pour la suite
+                    if (request.getAttribute("allowSuivant") != null)
+                    {
+                        if (request.getAttribute("allowPrecedent").equals("oui"))
+                            out.print("<input type=\"submit\" name=\"horoscopeSuivant\" value=\"Précédent\"/>");
+                        else
+                            out.print("<input type=\"submit\" name=\"horoscopeSuivant\" value=\"Précédent\" disabled/>");
+                    }
+                    else
+                        out.print("<input type=\"submit\" name=\"horoscopeSuivant\" value=\"Précédent\" disabled");
+                %>
             </form>
             
         </div>

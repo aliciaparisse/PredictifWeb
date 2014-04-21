@@ -34,6 +34,7 @@ public class ActionServlet extends HttpServlet {
     
     protected void processRequest (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+        // Création de session pour l'employé connecté
         HttpSession session = request.getSession(true);
         request.setAttribute("sessionOuverte", session);
         if (request.getParameter("todo").equals("ConnectionEmploye"))
@@ -48,25 +49,50 @@ public class ActionServlet extends HttpServlet {
         else
         {
             Employé sessionEmp = (Employé) session.getAttribute("user");
+            // Vérification si on a bien une session en cours pendant la navigation
+            // Sinon, retour à la page de login.
             if (sessionEmp == null)
-                this.getServletContext().getRequestDispatcher("VueLogInEmploye").forward(request, response);
+                request.getRequestDispatcher("VueLogInEmploye").forward(request, response);
             else
             {
                 String tache = request.getParameter("todo");
-
+                Action action = null;
+                
+                // Vérification si on a cliqué sur les boutons suivant ou précédent sur la page de traitement
+                // du client afin de récupérer la session de traitement en cours.
+                if ("HoroscopeSuivant".equals(tache) || "HoroscopePrecedent".equals(tache))
+                    action = (Action) session.getAttribute("instanceTraitementClient");
+                else
+                    action = this.getAction(tache);
+                
+                // Vérification si un client a bien été coché dans la liste des clients avant de passer à la suite
                 if ("TraiterClient".equals(tache))
                 {
                     clientChoisi = request.getParameter("choixClient");
                     unchecked= "correct";
-                    session.setAttribute("clientChoisi", clientChoisi);
                     if (clientChoisi == null)
                         unchecked = "incorrect";
                     request.setAttribute("clientCoché", unchecked);
+                    session.setAttribute("instanceTraitementClient", action);
                 }
-
-                Action action = this.getAction(tache);
+                
                 action.setServiceMetier(this.getServiceMetier());
-                action.execute(request);
+                
+                // Si appui sur bouton suivant ou précédent sur la page de traitement
+                // du client : On effectue les méthodes appropriées et pas execute.
+                if ("HoroscopeSuivant".equals(tache))
+                {
+                    ((DisplayHoroscope) action).afficherHoSuivant (request);
+                }
+                else if ("HoroscopePrecedent".equals(tache))
+                {
+                    ((DisplayHoroscope) action).afficherHoPrecedent (request);
+                }
+                else
+                {
+                    action.execute(request);
+                }
+                
                 String vue = this.setVue(tache);
                 request.getRequestDispatcher(vue).forward(request, response);
             }
@@ -143,10 +169,16 @@ public class ActionServlet extends HttpServlet {
         }
         else if ("TraiterClient".equals (todo))
         {
+            // Si l'employé n'a pas choisi de client, on retourne sur la même page
+            // Sinon on passe à la suite pour le traitement du client.
             if (clientChoisi != null)
+            {
                 vue = "VueTraitementClient.jsp";
+            }
             else
+            {
                 vue ="VueLogInEmploye.jsp";
+            }
         }
         else if ("DisplayMedium".equals(todo))
         {
@@ -156,15 +188,15 @@ public class ActionServlet extends HttpServlet {
         {
             vue = "VueTraitementClient.jsp";
         }
-        /*else if ("HoroscopeSuivant".equals(todo))
+        else if ("HoroscopeSuivant".equals(todo))
         {
-            vue = "ConfirmationInscriptionPage.jsp";
+            vue = "VueTraitementClient.jsp";
         }
         else if ("HoroscopePrecedent".equals(todo))
         {
-            vue = "ConfirmationInscriptionPage.jsp";
+            vue = "VueTraitementClient.jsp";
         }
-        else if ("AfficherDernierHoroscope".equals(todo))
+        /*else if ("AfficherDernierHoroscope".equals(todo))
         {
             vue = "ConfirmationInscriptionPage.jsp";
         }*/

@@ -36,7 +36,7 @@ public class LoginEmploye extends Action
                 session.setAttribute("user", sessionEmp);
                 
                 List<Client> listClient = service.ChercherEmployéParId(idEmp).getClients();
-                requete.setAttribute("listeClient", listClient);
+                session.setAttribute("listeClient", listClient);
             }
             catch (NullPointerException e1)
             {

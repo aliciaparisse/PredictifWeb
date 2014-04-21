@@ -20,10 +20,16 @@ public class TraitementClient extends Action
     @Override
     public void execute(HttpServletRequest requete) 
     {
+        // Récupération du client sélectionné par les boutons radio
         String clientChoisi = requete.getParameter("choixClient");
-        int idClientChoisi = Integer.parseInt (clientChoisi);
-        Client unClient = service.ChercherClientParId(idClientChoisi);
-        HttpSession session = (HttpSession) requete.getAttribute("sessionOuverte");
-        session.setAttribute("leClient", unClient);
+        if (clientChoisi != null)
+        {
+            int idClientChoisi = Integer.parseInt (clientChoisi);
+            Client unClient = service.ChercherClientParId(idClientChoisi);
+
+            // Récupération de la session en cours et enregistrement de ce client sur la session
+            HttpSession session = (HttpSession) requete.getAttribute("sessionOuverte");
+            session.setAttribute("leClient", unClient);
+        }
     }
 }
