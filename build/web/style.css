@@ -1,0 +1,37 @@
+*
+{
+	font-family: Verdana, Arial, sans-serif;
+}
+
+body
+{
+	background-color: rgb(232,196,155);
+}
+
+header
+{
+	background-image: url('./img/voyanteCristal.jpg');
+	height: 325px;
+	font-size: 80px;
+	color: white;
+	text-align: center;
+
+}
+
+h1
+{
+	font-size: 50px;
+	text-align: center;
+}
+
+section
+{
+	width: 350px;
+	margin: auto;
+	padding: 12px;
+}
+
+.formulaire
+{
+	color: black;
+}
