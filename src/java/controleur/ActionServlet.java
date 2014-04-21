@@ -8,6 +8,7 @@ package controleur;
 import controleur.actions.Action;
 import controleur.actions.ChooseMedium;
 import controleur.actions.ClientRegister;
+import controleur.actions.DisplayHoroscope;
 import controleur.actions.ListeMediumAction;
 import controleur.actions.LoginEmploye;
 import controleur.actions.TraitementClient;
@@ -34,6 +35,7 @@ public class ActionServlet extends HttpServlet {
     protected void processRequest (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         HttpSession session = request.getSession(true);
+        request.setAttribute("sessionOuverte", session);
         if (request.getParameter("todo").equals("ConnectionEmploye"))
         {
             String tache = "ConnectionEmploye";
@@ -56,6 +58,7 @@ public class ActionServlet extends HttpServlet {
                 {
                     clientChoisi = request.getParameter("choixClient");
                     unchecked= "correct";
+                    session.setAttribute("clientChoisi", clientChoisi);
                     if (clientChoisi == null)
                         unchecked = "incorrect";
                     request.setAttribute("clientCoché", unchecked);
@@ -64,7 +67,7 @@ public class ActionServlet extends HttpServlet {
                 Action action = this.getAction(tache);
                 action.setServiceMetier(this.getServiceMetier());
                 action.execute(request);
-                String vue = this.setVue(tache);    
+                String vue = this.setVue(tache);
                 request.getRequestDispatcher(vue).forward(request, response);
             }
         }
@@ -103,6 +106,22 @@ public class ActionServlet extends HttpServlet {
         {
             action = new ChooseMedium();
         }
+        else if ("AfficherDernierHoroscope".equals(todo))
+        {
+            action = new DisplayHoroscope();
+        }
+        /*else if ("HoroscopeSuivant".equals(todo))
+        {
+            action = new ChooseMedium();
+        }
+        else if ("HoroscopePrecedent".equals(todo))
+        {
+            action = new ChooseMedium();
+        }
+        else if ("AfficherDernierHoroscope".equals(todo))
+        {
+            action = new ChooseMedium();
+        }*/
         
         return action;
     }
@@ -133,6 +152,22 @@ public class ActionServlet extends HttpServlet {
         {
             vue = "ConfirmationInscriptionPage.jsp";
         }
+        else if ("AfficherDernierHoroscope".equals(todo))
+        {
+            vue = "VueTraitementClient.jsp";
+        }
+        /*else if ("HoroscopeSuivant".equals(todo))
+        {
+            vue = "ConfirmationInscriptionPage.jsp";
+        }
+        else if ("HoroscopePrecedent".equals(todo))
+        {
+            vue = "ConfirmationInscriptionPage.jsp";
+        }
+        else if ("AfficherDernierHoroscope".equals(todo))
+        {
+            vue = "ConfirmationInscriptionPage.jsp";
+        }*/
         return vue;
     }
 

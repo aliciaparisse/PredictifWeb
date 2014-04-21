@@ -20,6 +20,8 @@ public class DisplayHoroscope extends Action
     {
         String boutonAppuye = "oui";
         requete.setAttribute("boutonAppuye", boutonAppuye);
+        boutonAppuye = null;
+        
         
     }
     

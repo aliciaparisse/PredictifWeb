@@ -31,38 +31,40 @@
                     <th>Nom</th>
                     <th>Prénom</th>
                 </tr>
-        <%   
-        if (request.getAttribute("employeExiste") != null && session.getAttribute("user") == null)
-        {
-            if(request.getAttribute("listeClient") != null) 
+        <%
+            if (session.getAttribute("user") != null)
             {
-                List<Client> listClient = (List<Client>) request.getAttribute("listeClient");
-                for (int i=0; i < listClient.size(); i++)
+                if(request.getAttribute("listeClient") != null) 
                 {
-                    out.print("<tr>");
-                    out.print("<th>" + "<input type=\"radio\" name=\"choixClient\" value=\"" + listClient.get(i).getId() + "\"/> " + listClient.get(i).getNom() + "</th>");
-                    out.print("<th>" + listClient.get(i).getPrenom() + "</th>");                    
-                    out.print("</tr>");
+                    List<Client> listClient = (List<Client>) request.getAttribute("listeClient");
+                    for (int i=0; i < listClient.size(); i++)
+                    {
+                        out.print("<tr>");
+                        out.print("<th>" + "<input type=\"radio\" name=\"choixClient\" value=\"" + listClient.get(i).getId() + "\"/> " + listClient.get(i).getNom() + "</th>");
+                        out.print("<th>" + listClient.get(i).getPrenom() + "</th>");                    
+                        out.print("</tr>");
+                    }
                 }
             }
-        }
-        else if (request.getAttribute("employeExiste") != null && session.getAttribute("user") != null)
-        {
-            Employé sessionEmp = (Employé) session.getAttribute("user");
-            List<Client> listClient = sessionEmp.getClients();
-            List<Client> listeClient = (List<Client>) request.getAttribute("listeClient");
-                for (int i=0; i < listeClient.size(); i++)
+            else
+            {
+                if (request.getAttribute("employeExiste") == "oui")
                 {
-                    out.print("<tr>");
-                    out.print("<th>" + "<input type=\"radio\" name=\"choixClient\" value=\"" + listeClient.get(i).getId() + "\"/> " + listeClient.get(i).getNom() + "</th>");
-                    out.print("<th>" + listeClient.get(i).getPrenom() + "</th>");                    
-                    out.print("</tr>");
+                    if(request.getAttribute("listeClient") != null) 
+                    {
+                        List<Client> listClient = (List<Client>) request.getAttribute("listeClient");
+                        for (int i=0; i < listClient.size(); i++)
+                        {
+                            out.print("<tr>");
+                            out.print("<th>" + "<input type=\"radio\" name=\"choixClient\" value=\"" + listClient.get(i).getId() + "\"/> " + listClient.get(i).getNom() + "</th>");
+                            out.print("<th>" + listClient.get(i).getPrenom() + "</th>");                    
+                            out.print("</tr>");
+                        }
+                    }
                 }
-        }
-        else if (request.getAttribute("employeExiste") == null)
-        {
-            out.print("Veuillez rentrer un identifiant correct");
-        }
+                else if (request.getAttribute("employeExiste") == "non")
+                    out.print("Veuillez rentrer un identifiant correct");
+            }
         %>            
             </table>
         <%

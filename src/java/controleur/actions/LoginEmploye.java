@@ -14,7 +14,8 @@ import predictif.Employé;
  *
  * @author alicia
  */
-public class LoginEmploye extends Action {
+public class LoginEmploye extends Action 
+{
     
     @Override
     public void execute (HttpServletRequest requete)
@@ -25,19 +26,27 @@ public class LoginEmploye extends Action {
             int idEmp = Integer.parseInt(SidEmp);
             String empExiste = null; 
             requete.setAttribute("serviceUsed", service);
-            if (service.ChercherEmployéParId(idEmp) != null)
+            try
             {
+                service.ChercherEmployéParId(idEmp);
                 empExiste = "oui";
                 
-                HttpSession session = requete.getSession(true);
+                HttpSession session = (HttpSession) requete.getAttribute("sessionOuverte");
                 Employé sessionEmp = service.ChercherEmployéParId(idEmp);
                 session.setAttribute("user", sessionEmp);
                 
                 List<Client> listClient = service.ChercherEmployéParId(idEmp).getClients();
                 requete.setAttribute("listeClient", listClient);
-                
             }
-            requete.setAttribute("employeExiste", empExiste);
+            catch (NullPointerException e1)
+            {
+                empExiste = "non";
+            }
+            finally
+            {
+                System.out.println("java : " + empExiste);
+                requete.setAttribute("employeExiste", empExiste);
+            }
         }
     }
 }
