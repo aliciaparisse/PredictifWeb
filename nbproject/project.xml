@@ -7,36 +7,16 @@
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <web-module-libraries>
                 <library dirs="200">
-                    <file>${file.reference.derby.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
+                    <file>${libs.eclipselink.classpath}</file>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.derbyclient.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
+                    <file>${libs.JAVADB_DRIVER_LABEL.classpath}</file>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.derbynet.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
+                    <file>${file.reference.opencsv-2.3.jar-2}</file>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.eclipselink-2.3.2.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library dirs="200">
-                    <file>${file.reference.javax.persistence-2.0.3.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library dirs="200">
-                    <file>${file.reference.opencsv-2.3.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library dirs="200">
-                    <file>${file.reference.org.eclipse.persistence.jpa.jpql_1.0.1.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library dirs="200">
-                    <file>${file.reference.opencsv-2.3.jar-1}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
+                    <file>${file.reference.servlet-api-2.5.jar}</file>
                 </library>
             </web-module-libraries>
             <web-module-additional-libraries/>

@@ -4,7 +4,10 @@
  */
 package controleur.actions;
 
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import predictif.Client;
 import predictif.Employé;
 
 /**
@@ -17,11 +20,24 @@ public class LoginEmploye extends Action {
     public void execute (HttpServletRequest requete)
     {
         String SidEmp = requete.getParameter("login");
-        System.out.println(SidEmp);
-        
-        int idEmp = Integer.parseInt(SidEmp);
-        System.out.println(idEmp);
-        Employé unEmploye = (Employé) service.ChercherEmployéParId(idEmp);
-        requete.setAttribute("EmployeById", unEmploye);
+        if (!SidEmp.equals(""))
+        {
+            int idEmp = Integer.parseInt(SidEmp);
+            String empExiste = null; 
+            requete.setAttribute("serviceUsed", service);
+            if (service.ChercherEmployéParId(idEmp) != null)
+            {
+                empExiste = "oui";
+                
+                HttpSession session = requete.getSession(true);
+                Employé sessionEmp = service.ChercherEmployéParId(idEmp);
+                session.setAttribute("user", sessionEmp);
+                
+                List<Client> listClient = service.ChercherEmployéParId(idEmp).getClients();
+                requete.setAttribute("listeClient", listClient);
+                
+            }
+            requete.setAttribute("employeExiste", empExiste);
+        }
     }
 }

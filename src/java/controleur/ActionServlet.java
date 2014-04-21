@@ -10,6 +10,7 @@ import controleur.actions.ChooseMedium;
 import controleur.actions.ClientRegister;
 import controleur.actions.ListeMediumAction;
 import controleur.actions.LoginEmploye;
+import controleur.actions.TraitementClient;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import predictif.Employé;
 import predictif.service.Service;
 
 /**
@@ -25,29 +27,53 @@ import predictif.service.Service;
  */
 public class ActionServlet extends HttpServlet {
 
-    private Service service = null;
-    
+    private Service service;
+    private String clientChoisi;
+    private String unchecked= "correct";
     
     protected void processRequest (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        String tache = request.getParameter("todo");
-        Action action = this.getAction(tache);
-        System.out.print("hello there");
-        action.setServiceMetier(this.getServiceMetier());
-        System.out.print("hello this");
-        action.execute(request);
-        String vue = this.setVue(tache);    
-        request.getRequestDispatcher(vue).forward(request, response);
-        
-    }
-        
+        HttpSession session = request.getSession(true);
+        if (request.getParameter("todo").equals("ConnectionEmploye"))
+        {
+            String tache = "ConnectionEmploye";
+            Action action = this.getAction(tache);
+            action.setServiceMetier(this.getServiceMetier());
+            action.execute(request);
+            String vue = this.setVue(tache);    
+            request.getRequestDispatcher(vue).forward(request, response);
+        }
+        else
+        {
+            Employé sessionEmp = (Employé) session.getAttribute("user");
+            if (sessionEmp == null)
+                this.getServletContext().getRequestDispatcher("VueLogInEmploye").forward(request, response);
+            else
+            {
+                String tache = request.getParameter("todo");
+
+                if ("TraiterClient".equals(tache))
+                {
+                    clientChoisi = request.getParameter("choixClient");
+                    unchecked= "correct";
+                    if (clientChoisi == null)
+                        unchecked = "incorrect";
+                    request.setAttribute("clientCoché", unchecked);
+                }
+
+                Action action = this.getAction(tache);
+                action.setServiceMetier(this.getServiceMetier());
+                action.execute(request);
+                String vue = this.setVue(tache);    
+                request.getRequestDispatcher(vue).forward(request, response);
+            }
+        }
+    }        
     
     public Service getServiceMetier ()
     {
-        System.out.print("hello now");
         if (service == null)
         {
-            System.out.print("hello then");
             service = new Service();
         }
         return service;
@@ -64,17 +90,20 @@ public class ActionServlet extends HttpServlet {
         else if ("ConnectionEmploye".equals (todo))
         {
             action = new LoginEmploye();
-        }
-        
+        }        
         else if ("InscriptionClient".equals(todo))
         {
             action = new ClientRegister();
+        }
+        else if ("TraiterClient".equals (todo))
+        {
+            action = new TraitementClient();
         }
         else if ("DisplayMedium".equals(todo))
         {
             action = new ChooseMedium();
         }
-            
+        
         return action;
     }
     
@@ -87,14 +116,19 @@ public class ActionServlet extends HttpServlet {
         }
         else if ("ConnectionEmploye".equals (todo))
         {
-            vue = "VueLoggedIn.jsp";
-        }
-        
+            vue ="VueLogInEmploye.jsp";
+        }        
         else if ("InscriptionClient".equals(todo))
         {
             vue ="VueChoixMedium.jsp";
         }
-        
+        else if ("TraiterClient".equals (todo))
+        {
+            if (clientChoisi != null)
+                vue = "VueTraitementClient.jsp";
+            else
+                vue ="VueLogInEmploye.jsp";
+        }
         else if ("DisplayMedium".equals(todo))
         {
             vue = "ConfirmationInscriptionPage.jsp";
