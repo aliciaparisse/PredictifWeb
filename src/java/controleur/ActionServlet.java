@@ -6,9 +6,12 @@ package controleur;
  */
 
 import controleur.actions.Action;
+import controleur.actions.ChoixPrediction;
 import controleur.actions.ChooseMedium;
 import controleur.actions.ClientRegister;
+import controleur.actions.CreationHoroscope;
 import controleur.actions.DisplayHoroscope;
+import controleur.actions.EnvoieMail;
 import controleur.actions.ListeMediumAction;
 import controleur.actions.LoginEmploye;
 import controleur.actions.TraitementClient;
@@ -60,7 +63,7 @@ public class ActionServlet extends HttpServlet {
                 
                 // Vérification si on a cliqué sur les boutons suivant ou précédent sur la page de traitement
                 // du client afin de récupérer la session de traitement en cours.
-                if ("HoroscopeSuivant".equals(tache) || "HoroscopePrecedent".equals(tache))
+                if ("HoroscopeSuivant".equals(tache) || "HoroscopePrecedent".equals(tache) || "AfficherHoroscopeCree".equals(tache))
                     action = (Action) session.getAttribute("instanceTraitementClient");
                 else
                     action = this.getAction(tache);
@@ -87,6 +90,10 @@ public class ActionServlet extends HttpServlet {
                 else if ("HoroscopePrecedent".equals(tache))
                 {
                     ((DisplayHoroscope) action).afficherHoPrecedent (request);
+                }
+                else if ("AfficherHoroscopeCree".equals(tache))
+                {
+                    ((DisplayHoroscope) action).afficherHoroscopeCree (request);
                 }
                 else
                 {
@@ -136,18 +143,18 @@ public class ActionServlet extends HttpServlet {
         {
             action = new DisplayHoroscope();
         }
-        /*else if ("HoroscopeSuivant".equals(todo))
+        else if ("AfficherPredictionAmour".equals(todo))
         {
-            action = new ChooseMedium();
+            action = new CreationHoroscope();
         }
-        else if ("HoroscopePrecedent".equals(todo))
+        else if ("ChoixForce".equals(todo))
         {
-            action = new ChooseMedium();
+            action = new ChoixPrediction();
         }
-        else if ("AfficherDernierHoroscope".equals(todo))
+        else if ("EnvoyerMail".equals(todo))
         {
-            action = new ChooseMedium();
-        }*/
+            action = new EnvoieMail();
+        }
         
         return action;
     }
@@ -196,10 +203,22 @@ public class ActionServlet extends HttpServlet {
         {
             vue = "VueTraitementClient.jsp";
         }
-        /*else if ("AfficherDernierHoroscope".equals(todo))
+        else if ("ChoixForce".equals(todo))
         {
-            vue = "ConfirmationInscriptionPage.jsp";
-        }*/
+            vue = "VueTraitementClient.jsp";
+        }
+        else if ("AfficherPredictionAmour".equals(todo))
+        {
+            vue = "VueTraitementClient.jsp";
+        }
+        else if ("AfficherHoroscopeCree".equals(todo))
+        {
+            vue = "VueTraitementClient.jsp";
+        }
+        else if ("EnvoyerMail".equals(todo))
+        {
+            vue = "VueLogInEmploye.jsp";
+        }
         return vue;
     }
 

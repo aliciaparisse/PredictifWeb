@@ -72,7 +72,7 @@
             {
                 String unchecked = (String) request.getAttribute("clientCoché");
                 if (unchecked.equals("incorrect"))
-                    out.print("Veuillez sélectionner un client.");
+                    out.print("Veuillez sélectionner un client.<br>");
             }
         %>
             <input type="submit"  name="traitement" value="Traiter"/>

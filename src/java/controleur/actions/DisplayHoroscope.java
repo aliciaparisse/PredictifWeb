@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import predictif.Client;
 import predictif.Horoscope;
+import predictif.Medium;
+import predictif.Prediction;
+import predictif.PredictionAmour;
 
 /**
  *
@@ -86,6 +89,39 @@ public class DisplayHoroscope extends Action
         requete.setAttribute("allowSuivant", hoSuivantPo);
         String hoPrecedentPo = precedentPossible();
         requete.setAttribute("allowPrecedent", hoPrecedentPo);
+    }
+    
+    
+    /**
+     * Crée un horoscope à partir des données choisies par l'employé sur sa 
+     * page de traitement du client
+     * @param requete 
+     */
+    public void afficherHoroscopeCree (HttpServletRequest requete)
+    {
+        if (requete.getAttribute("predictionAmourChoisie") != null && requete.getAttribute("predictionSanteChoisie") != null && requete.getAttribute("predictionTravailChoisie") != null)
+        {
+            HttpSession session = (HttpSession) requete.getAttribute("sessionOuverte");
+            
+            // Récupération des éléments qui vont composer le nouvel horoscope : prédictions, médium et client
+            Prediction predictionAmour = (Prediction) requete.getAttribute("predictionAmourChoisie");
+            Prediction predictionSante = (Prediction) requete.getAttribute("predictionSanteChoisie");
+            Prediction predictionTravail = (Prediction) requete.getAttribute("predictionTravailChoisie");
+            if (requete.getParameter("selectMedium") != null)
+            {
+                String nomMedium = (String) requete.getParameter("selectMedium");
+                Medium leMedium = service.ChercherMedium(nomMedium);
+                Client leClient = (Client) session.getAttribute("leClient");
+                
+                // Création de l'horoscope
+                Horoscope newHoroscope = new Horoscope (leClient, leMedium, predictionAmour, predictionSante, predictionTravail);
+                requete.setAttribute("nouvelHoroscope", newHoroscope);
+                
+                // récupération du corps de l'horoscope
+                String corpsNewHo = newHoroscope.CorpsHoroscope();
+                requete.setAttribute("corpsHo", corpsNewHo);
+            }
+        }
     }
     
     /**

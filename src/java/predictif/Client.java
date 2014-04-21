@@ -81,9 +81,6 @@ public class Client implements Serializable {
     public String getNom() {
         return Nom;
     }
-
-
-    
     
     public int GetMoisNaissance() {
            return DatedeNaissance.getMonth();

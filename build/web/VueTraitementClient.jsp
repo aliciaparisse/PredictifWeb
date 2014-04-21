@@ -4,6 +4,7 @@
     Author     : Administrateur
 --%>
 
+<%@page import="predictif.PredictionAmour"%>
 <%@page import="predictif.Horoscope"%>
 <%@page import="predictif.Medium"%>
 <%@page import="java.util.List"%>
@@ -43,7 +44,7 @@
         <h3>Construction de l'horoscope</h3>
         <p> 
             Choix du médium: 
-            <select name="selectMedium" size="nbMedium">
+            <select name="selectMedium">
                 <%
                     // Affiche la liste des médiums préférés du client en cours de traitement
                     List<Medium> listMediums = clientTraite.getMediumPreferes();
@@ -64,20 +65,61 @@
         </p>
         -->
         <p>
-            Prédiction Amour: <br>
-           <select name="predictionAmourForce" size="nbForceAmour"></select>
-             <select name="predictionAmourReference" size="nbReferenceAmour"></select>
-             <input type="submit" name="affichage" value="Afficher"/>
+            <form action="ActionServlet?todo=ChoixForce" method="POST">
+                Prédiction Amour: <br>
+                <select name="predictionAmourForce">
+                    <%
+                        for (int i=1; i<5;i++)
+                        {
+                    %>
+                    <option value="<%out.print(i);%>"><%out.print(i);%></option>
+                    <%}%>
+                </select>
+                <input type="submit" name="choixForce" value="OK"/>
+            </form>
+            <form action="ActionServlet?todo=AfficherPredictionAmour" method="POST"/>
+                <select name="predictionAmourReference">
+                    <%
+                        if (request.getAttribute("listePredictAmour") != null)
+                        {
+                            List<PredictionAmour> listPredict = (List<PredictionAmour>) request.getAttribute("listePredictAmour");
+                            for (int i=0; i<listPredict.size();i++)
+                            {
+                    %>
+                    <option value="<%out.print(listPredict.get(i).getId());%>"><%out.print(listPredict.get(i).getId());%></option>
+                    <%
+                            }}
+                    %>
+                </select>
+                 <input type="submit" name="affichage" value="Afficher"/>
+            </form>
         </p>
         <p>
-            Prédiction Sante: <br>
-           <select name="predictionSanteForce" size="nbForceSante"></select>
-             <select name="predictionSanteReference" size="nbReferenceSante"></select>
-             <input type="submit" name="affichage" value="Afficher"/>
+            <!--
+            <form action="ActionServlet?todo=ChoixForce" method="POST">
+                Prédiction Sante: <br>
+                <select name="predictionSanteForce">
+                    <%
+                        /*for (int i=1; i<5;i++)*/
+                        {
+                    %>
+                    <option value="<%//out.print(i);%>"><%//out.print(i);%></option>
+                    <%}%>
+                </select>
+                <input type="submit" name="choixForce" value="OK"/>
+            </form>
+                <select name="predictionSanteReference">
+
+                </select>
+                 <input type="submit" name="affichage" value="Afficher"/>
+            </form>
+            -->
         </p>
         
         <p> 
-            <input type="submit" name="AfficherMail" value="Afficher le mail"/>
+            <form action="ActionServlet?todo=AfficherHoroscopeCree" method="POST">
+                <input type="submit" name="AfficherMail" value="Afficher le mail"/>
+            </form>
         </p>
         
         <div>
