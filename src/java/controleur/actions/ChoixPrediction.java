@@ -6,6 +6,7 @@
 
 package controleur.actions;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import predictif.Prediction;
@@ -25,9 +26,31 @@ public class ChoixPrediction extends Action
         if (forcePrediction != null)
         {
             int forceChoisiInt = Integer.parseInt (forcePrediction);
+            Prediction predictionChoisie = service.ChercherPredictionParId(350);
+            List<Prediction> listPredict = new ArrayList<Prediction>();
+            listPredict.add(predictionChoisie);
+            requete.setAttribute("listePredictAmour", listPredict);
+            /*
             // Service non fonctionnelle : requête SQL mal interprétée.
             List<Prediction> listPredict = service.ChercherPredictionParNiveau(forceChoisiInt);
-            requete.setAttribute("listePredictAmour", listPredict);
+            if (listPredict != null)
+            {
+            for (int i=0; i<listPredict.size();i++)
+                System.out.println(listPredict.get(i).getId());
+            }
+            else
+                System.out.println("liste nulle");
+            List<Prediction> listePredict = service.ChercherPredictionParType(PredictionAmour.class);
+            if (listePredict != null)
+            {
+            for (int i=0; i<listePredict.size();i++)
+                System.out.println(listePredict.get(i).getId());
+            }
+            else
+                System.out.println("liste 2 nulle");
+            
+            
+            //requete.setAttribute("listePredictAmour", listPredict);*/
         }
     }
     

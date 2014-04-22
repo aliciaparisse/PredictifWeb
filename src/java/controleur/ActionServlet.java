@@ -84,8 +84,9 @@ public class ActionServlet extends HttpServlet {
                     if (clientChoisi == null)
                         unchecked = "incorrect";
                     request.setAttribute("clientCoché", unchecked);
-                    session.setAttribute("instanceTraitementClient", action);
                 }
+                if ("AfficherDernierHoroscope".equals(tache))
+                    session.setAttribute("instanceTraitementClient", action);
                 
                 action.setServiceMetier(this.getServiceMetier());
                 
@@ -117,10 +118,8 @@ public class ActionServlet extends HttpServlet {
     
     public Service getServiceMetier ()
     {
-        System.out.print("hi dear");
         if (service == null)
         {
-            System.out.print("hi dear 2 !");
             service = new Service();
         }
         return service;
@@ -239,18 +238,7 @@ public class ActionServlet extends HttpServlet {
         }
         return vue;
     }
-
-    @Override
-  public void init() throws ServletException {
-    super.init();
-    JpaUtil.init();
-  }
-
-  @Override
-  public void destroy() {
-    super.destroy();
-    JpaUtil.destroy();
-  }
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP

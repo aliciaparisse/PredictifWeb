@@ -4,6 +4,7 @@
     Author     : Administrateur
 --%>
 
+<%@page import="predictif.Prediction"%>
 <%@page import="predictif.PredictionAmour"%>
 <%@page import="predictif.Horoscope"%>
 <%@page import="predictif.Medium"%>
@@ -86,7 +87,7 @@
                     <%
                         if (request.getAttribute("listePredictAmour") != null)
                         {
-                            List<PredictionAmour> listPredict = (List<PredictionAmour>) request.getAttribute("listePredictAmour");
+                            List<Prediction> listPredict = (List<Prediction>) request.getAttribute("listePredictAmour");
                             for (int i=0; i<listPredict.size();i++)
                             {
                     %>
@@ -155,13 +156,13 @@
                     // On désactive le bouton s'il n'est pas utilisable pour la suite
                     if (request.getAttribute("allowSuivant") != null)
                     {
-                        if (request.getAttribute("allowPrecedent").equals("oui"))
-                            out.print("<input type=\"submit\" name=\"horoscopeSuivant\" value=\"Précédent\"/>");
+                        if (request.getAttribute("allowSuivant").equals("oui"))
+                            out.print("<input type=\"submit\" name=\"horoscopeSuivant\" value=\"Suivant\"/>");
                         else
-                            out.print("<input type=\"submit\" name=\"horoscopeSuivant\" value=\"Précédent\" disabled/>");
+                            out.print("<input type=\"submit\" name=\"horoscopeSuivant\" value=\"Suivant\" disabled/>");
                     }
                     else
-                        out.print("<input type=\"submit\" name=\"horoscopeSuivant\" value=\"Précédent\" disabled");
+                        out.print("<input type=\"submit\" name=\"horoscopeSuivant\" value=\"Suivant\" disabled");
                 %>
             </form>
             
