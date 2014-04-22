@@ -12,7 +12,7 @@ import javax.persistence.RollbackException;
  * configuration indiquÃ©e dans le fichier persistence.xml du projet.
  * @author DASI Team
  */
-public class JPAutil {
+public class JpaUtil {
 
     // *************************************************************************************
     // * TODO: IMPORTANT -- Adapter le nom de l'UnitÃ© de Persistance (cf. persistence.xml) *
@@ -26,7 +26,7 @@ public class JPAutil {
      * Factory de Entity Manager liÃ©e Ã  l'unitÃ© de persistance.
      * <br/><strong>VÃ©rifier le nom de l'unitÃ© de persistance indiquÃ©e dans l'attribut statique PERSISTENCE_UNIT_NAME (cf.&nbsp;persistence.xml)</strong>
      */
-    private static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+    private static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
     /**
      * GÃ¨re les instances courantes de Entity Manager liÃ©es aux Threads.
      * L'utilisation de ThreadLocal garantie une unique instance courante par Thread.
@@ -121,4 +121,21 @@ public class JPAutil {
         log("obtention du contexte de persistance");
         return threadLocalEntityManager.get();
     }
+    
+    
+    public static synchronized void init() {
+    log("initialisation de la factory de contexte de persistance");
+    if (entityManagerFactory != null) {
+      entityManagerFactory.close();
+    }
+    entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+    }
+    
+    public static synchronized void destroy() {
+    log("libération de la factory de contexte de persistance");
+    if (entityManagerFactory != null) {
+      entityManagerFactory.close();
+      entityManagerFactory = null;
+    }
+  } 
 }

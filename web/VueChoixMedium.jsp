@@ -13,11 +13,15 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="style.css" />
         <title>JSP Page</title>
     </head>
     <body>
+        <header>
+            <span class="bannertext"> Prédict'IF...</span>
+        </header>
        
-        
+        <section>
         <% Service monService = (Service) request.getAttribute("serviceUsed");
         Client monClient = (Client) request.getAttribute("clientTreated");
         String confirmation = (String) request.getAttribute("conf");  
@@ -29,9 +33,6 @@
                 out.print("<br>");
                 out.print(" Astuce : cliquez sur l'avatar d'un medium pour découvrir son histoire et ses talents !");
                 
-                out.print("<select  name = \"name\"> <option>"+ monClient.getNom()+"</option> </ select>");
-
-
                 List <Medium> maListe = (List <Medium>) monService.ObtenirToutMedium();
                 out.print(maListe.size());
                 for (int i=0; i<5; i++)
@@ -52,6 +53,6 @@
             out.print("<a href = \"InscriptionPageClient.jsp\" > Retour vers l'inscription</a>");
         }
         %>
-        
+        </section>
     </body>
 </html>

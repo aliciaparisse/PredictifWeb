@@ -14,9 +14,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="style.css" />
         <title>JSP Page</title>
     </head>
     <body>
+        <header>
+            <span class="bannertext"> Prédict'IF...</span>
+        </header>
         <h3>Informations client</h3>
         <form action="ActionServlet?todo=AfficherDernierHoroscope" method="POST">
             <p>

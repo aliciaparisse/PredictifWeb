@@ -48,18 +48,23 @@ public final class WelcomePageClient_jsp extends org.apache.jasper.runtime.HttpJ
       out.write("<html>\n");
       out.write("    <head>\n");
       out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n");
+      out.write("        <link rel=\"stylesheet\" href=\"style.css\" />\n");
       out.write("        <title>Bienvenue sur le Site de Predict'IF</title>\n");
       out.write("    </head>\n");
       out.write("    <body>\n");
-      out.write("        Bienvenue dans Predict'IF\n");
+      out.write("        <header>\n");
+      out.write("            <span class=\"bannertext\"> Prédict'IF...</span>\n");
+      out.write("        </header>\n");
+      out.write("        <h1>Bienvenue dans Predict'IF</h1>\n");
       out.write("        <br>\n");
-      out.write("        Le site d'horoscopes en ligne !\n");
+      out.write("        <section>Le site d'horoscopes en ligne !\n");
       out.write("        <br>\n");
       out.write("        Profitez des talents de nos Mediums ! Service 100% Gratuit !\n");
       out.write("        <br>\n");
       out.write("        <form name=\"Aller s'inscrire\" action=\"InscriptionPageClient.jsp\" method=\"POST\">\n");
-      out.write("        <input type=\"submit\" value=\"S'inscrire !\" name=\"Bouton inscription Client\" />\n");
+      out.write("        <input class=\"bouton\" type=\"submit\" value=\"S'inscrire !\" name=\"Bouton inscription Client\" />\n");
       out.write("        </form>\n");
+      out.write("        </section>\n");
       out.write("    </body>\n");
       out.write("</html>\n");
     } catch (Throwable t) {

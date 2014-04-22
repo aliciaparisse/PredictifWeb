@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import predictif.Employé;
+import predictif.JpaUtil;
 import predictif.service.Service;
 
 /**
@@ -31,12 +32,13 @@ import predictif.service.Service;
  */
 public class ActionServlet extends HttpServlet {
 
-    private Service service;
+    private Service service = null;
     private String clientChoisi;
     private String unchecked= "correct";
     
     protected void processRequest (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+        
         // Création de session pour l'employé connecté
         HttpSession session = request.getSession(true);
         request.setAttribute("sessionOuverte", session);
@@ -51,15 +53,21 @@ public class ActionServlet extends HttpServlet {
         }
         else
         {
+            
             Employé sessionEmp = (Employé) session.getAttribute("user");
             // Vérification si on a bien une session en cours pendant la navigation
             // Sinon, retour à la page de login.
-            if (sessionEmp == null)
-                request.getRequestDispatcher("VueLogInEmploye").forward(request, response);
-            else
-            {
+            //if (sessionEmp == null)
+            //{
+              //  System.out.print("hello there");
+                //request.getRequestDispatcher("VueLogInEmploye").forward(request, response);
+            //}
+            //else
+            //{
+                
                 String tache = request.getParameter("todo");
                 Action action = null;
+                
                 
                 // Vérification si on a cliqué sur les boutons suivant ou précédent sur la page de traitement
                 // du client afin de récupérer la session de traitement en cours.
@@ -101,15 +109,18 @@ public class ActionServlet extends HttpServlet {
                 }
                 
                 String vue = this.setVue(tache);
+                
                 request.getRequestDispatcher(vue).forward(request, response);
             }
-        }
+        //}
     }        
     
     public Service getServiceMetier ()
     {
+        System.out.print("hi dear");
         if (service == null)
         {
+            System.out.print("hi dear 2 !");
             service = new Service();
         }
         return service;
@@ -155,7 +166,10 @@ public class ActionServlet extends HttpServlet {
         {
             action = new EnvoieMail();
         }
-        
+        else if ("ChooseMedium".equals(todo))
+        {
+            action = new ChooseMedium();
+        }
         return action;
     }
     
@@ -219,9 +233,24 @@ public class ActionServlet extends HttpServlet {
         {
             vue = "VueLogInEmploye.jsp";
         }
+        else if ("ChooseMedium".equals(todo))
+        {
+            vue = "ConfirmationInscriptionPage.jsp";
+        }
         return vue;
     }
 
+    @Override
+  public void init() throws ServletException {
+    super.init();
+    JpaUtil.init();
+  }
+
+  @Override
+  public void destroy() {
+    super.destroy();
+    JpaUtil.destroy();
+  }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP

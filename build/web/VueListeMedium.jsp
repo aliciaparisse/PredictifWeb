@@ -11,9 +11,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="style.css" />
         <title>JSP Page</title>
     </head>
     <body>
+        <header>
+            <span class="bannertext"> Prédict'IF...</span>
+        </header>
         <% List<Medium> liste = (List<Medium>)request.getAttribute("listeMedium");
         for (Medium m : liste)
         {

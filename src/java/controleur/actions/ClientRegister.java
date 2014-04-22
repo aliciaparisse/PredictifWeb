@@ -42,6 +42,8 @@ public class ClientRegister extends Action {
          System.out.println(myClient.getNom());
          service.CreerClient(myClient);
          }
+         Long idClient = myClient.getId();
+         requete.getSession().setAttribute("idClient", idClient);
          requete.setAttribute("clientTreated", myClient);
          requete.setAttribute("serviceUsed", service);
          requete.setAttribute("conf", utilisation);

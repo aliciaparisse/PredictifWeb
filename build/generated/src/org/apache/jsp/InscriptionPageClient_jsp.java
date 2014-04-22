@@ -51,15 +51,14 @@ public final class InscriptionPageClient_jsp extends org.apache.jasper.runtime.H
       out.write("         <link rel=\"stylesheet\" href=\"style.css\" />\n");
       out.write("        <title>Inscription Page Client</title>\n");
       out.write("    </head>\n");
-      out.write("    <body>\n");
+      out.write("    <body>..\n");
       out.write("        <header>\n");
-      out.write("            Bienvenue sur le site de Predict'IF !\n");
+      out.write("            <span class=\"bannertext\"> Prédict'IF...</span>\n");
       out.write("        </header>\n");
       out.write("        <h1>Inscription</h1> \n");
       out.write("        <br>\n");
-      out.write("        \n");
-      out.write("        <section>\n");
       out.write("        <form action=\"http://localhost:8080/PredictifWeb/ActionServlet?todo=InscriptionClient\" method=\"POST\">\n");
+      out.write("        <section>\n");
       out.write("        \n");
       out.write("            <select name=\"civility\">\n");
       out.write("                <option>Mme </option>\n");
@@ -78,9 +77,9 @@ public final class InscriptionPageClient_jsp extends org.apache.jasper.runtime.H
       out.write("            <input type=\"checkbox\" name =\"utilisation\"  value=\"ON\" checked=\"checked\" /> J'accepte les conditions d'utilisations de ce service\n");
       out.write("            <input type=\"submit\" value=\"Etape suivante\" name=\"registerInBdd\" />\n");
       out.write("        \n");
-      out.write("        </form>\n");
       out.write("        </section>\n");
       out.write("        \n");
+      out.write("        </form>\n");
       out.write("    </body>\n");
       out.write("</html>\n");
     } catch (Throwable t) {

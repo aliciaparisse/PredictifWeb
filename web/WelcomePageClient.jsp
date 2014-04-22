@@ -9,17 +9,22 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="style.css" />
         <title>Bienvenue sur le Site de Predict'IF</title>
     </head>
     <body>
-        Bienvenue dans Predict'IF
+        <header>
+            <span class="bannertext"> Prédict'IF...</span>
+        </header>
+        <h1>Bienvenue dans Predict'IF</h1>
         <br>
-        Le site d'horoscopes en ligne !
+        <section>Le site d'horoscopes en ligne !
         <br>
         Profitez des talents de nos Mediums ! Service 100% Gratuit !
         <br>
         <form name="Aller s'inscrire" action="InscriptionPageClient.jsp" method="POST">
-        <input type="submit" value="S'inscrire !" name="Bouton inscription Client" />
+        <input class="bouton" type="submit" value="S'inscrire !" name="Bouton inscription Client" />
         </form>
+        </section>
     </body>
 </html>

@@ -18,7 +18,6 @@ public class ChooseMedium extends Action {
     @Override
     public void execute(HttpServletRequest requete) {
         //List <String> mediums = null;
-        String nomClient = requete.getParameter("name");
         List <Medium> tousLesMediums = (List <Medium>) service.ObtenirToutMedium();
         List <Medium> mediumsClient = null;
         for (int i = 0; i < 5 ; i++)
@@ -29,7 +28,10 @@ public class ChooseMedium extends Action {
                 mediumsClient.add(tousLesMediums.get(i));
             }
         }
-        Client monClient = service.ChercherClientParNom(nomClient).get(1);
+        Long idClient = (Long) requete.getSession().getAttribute("idClient");
+        Client myClient = service.ChercherClientParId(idClient.intValue());
+        myClient.setMediumPreferes(mediumsClient);
+        service.MettreAjourClient(myClient);
         requete.setAttribute("serviceUsed", service);
     }
     

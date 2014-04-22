@@ -1,6 +1,6 @@
 *
 {
-	font-family: Verdana, Arial, sans-serif;
+	font-family: 'Trebuchet MS', Verdana, Arial, sans-serif;
 }
 
 body
@@ -12,26 +12,43 @@ header
 {
 	background-image: url('./img/voyanteCristal.jpg');
 	height: 325px;
-	font-size: 80px;
+	font-size: 70px;
 	color: white;
-	text-align: center;
+	
 
 }
+
+.bannertext
+{
+	position: relative;
+	left : 20%;	
+}
+
 
 h1
 {
 	font-size: 50px;
 	text-align: center;
+	color:rgb(119,68,60);
 }
 
 section
 {
-	width: 350px;
+	width: 500px;
 	margin: auto;
 	padding: 12px;
+	position: relative;
+	text-align: center;
+	top : 20px;
 }
 
 .formulaire
 {
 	color: black;
+}
+
+.bouton
+{
+	width: 200px;
+	margin:auto;
 }

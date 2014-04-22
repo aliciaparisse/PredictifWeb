@@ -14,9 +14,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="style.css" />
         <title>Bienvenue sur Predict'IF</title>
     </head>
     <body>
+        <header>
+            <span class="bannertext"> Prédict'IF...</span>
+        </header>
         <h1>Bonjour ! <br> Veuillez vous connecter !</h1>
         
         <form action="ActionServlet?todo=ConnectionEmploye" method="POST"/>    

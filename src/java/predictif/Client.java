@@ -152,5 +152,9 @@ public class Client implements Serializable {
         return result;
                 
     }
+
+    public void setMediumPreferes(List<Medium> MediumPreferes) {
+        this.MediumPreferes = MediumPreferes;
+    }
     
 }

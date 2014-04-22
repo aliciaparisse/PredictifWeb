@@ -12,15 +12,14 @@
          <link rel="stylesheet" href="style.css" />
         <title>Inscription Page Client</title>
     </head>
-    <body>
+    <body>..
         <header>
-            Bienvenue sur le site de Predict'IF !
+            <span class="bannertext"> Prédict'IF...</span>
         </header>
         <h1>Inscription</h1> 
         <br>
-        
-        <section>
         <form action="http://localhost:8080/PredictifWeb/ActionServlet?todo=InscriptionClient" method="POST">
+        <section>
         
             <select name="civility">
                 <option>Mme </option>
@@ -39,8 +38,8 @@
             <input type="checkbox" name ="utilisation"  value="ON" checked="checked" /> J'accepte les conditions d'utilisations de ce service
             <input type="submit" value="Etape suivante" name="registerInBdd" />
         
-        </form>
         </section>
         
+        </form>
     </body>
 </html>

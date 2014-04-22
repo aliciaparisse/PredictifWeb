@@ -9,9 +9,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="style.css" />
         <title>JSP Page</title>
     </head>
     <body>
+        <header>
+            <span class="bannertext"> Prédict'IF...</span>
+        </header>
         <h1>Jean Marchal</h1>
         
     </body>
