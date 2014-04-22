@@ -32,8 +32,11 @@
             <table>
                 <caption>Liste des clients</caption>
                 <tr>
+                    <th>Choix</th>
+                    <th>Civilité</th>
                     <th>Nom</th>
                     <th>Prénom</th>
+                    <th>Signe Astrologique</th>
                 </tr>
         <%
             if (session.getAttribute("user") != null)
@@ -44,8 +47,11 @@
                     for (int i=0; i < listClient.size(); i++)
                     {
                         out.print("<tr>");
-                        out.print("<th>" + "<input type=\"radio\" name=\"choixClient\" value=\"" + listClient.get(i).getId() + "\"/> " + listClient.get(i).getNom() + "</th>");
-                        out.print("<th>" + listClient.get(i).getPrenom() + "</th>");                    
+                        out.print("<th>" + "<input type=\"radio\" name=\"choixClient\" value=\"" + listClient.get(i).getId() + "\"/> " + "</th>");
+                        out.print("<th>" + listClient.get(i).getCivilite() + "</th>");
+                        out.print("<th>" + listClient.get(i).getNom() + "</th>");
+                        out.print("<th>" + listClient.get(i).getPrenom() + "</th>");
+                        out.print("<th>" + listClient.get(i).getSigneAstro().getNom() + "</th>");
                         out.print("</tr>");
                     }
                 }

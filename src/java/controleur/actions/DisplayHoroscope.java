@@ -14,6 +14,8 @@ import predictif.Horoscope;
 import predictif.Medium;
 import predictif.Prediction;
 import predictif.PredictionAmour;
+import predictif.PredictionSante;
+import predictif.PredictionTravail;
 
 /**
  *
@@ -99,14 +101,15 @@ public class DisplayHoroscope extends Action
      */
     public void afficherHoroscopeCree (HttpServletRequest requete)
     {
-        if (requete.getAttribute("predictionAmourChoisie") != null && requete.getAttribute("predictionSanteChoisie") != null && requete.getAttribute("predictionTravailChoisie") != null)
-        {
-            HttpSession session = (HttpSession) requete.getAttribute("sessionOuverte");
-            
+        HttpSession session = (HttpSession) requete.getAttribute("sessionOuverte");
+        String corpsNewHo;
+        
+        if (session.getAttribute("predictionAmourChoisie") != null && session.getAttribute("predictionSanteChoisie") != null && session.getAttribute("predictionTravailChoisie") != null)
+        {            
             // Récupération des éléments qui vont composer le nouvel horoscope : prédictions, médium et client
-            Prediction predictionAmour = (Prediction) requete.getAttribute("predictionAmourChoisie");
-            Prediction predictionSante = (Prediction) requete.getAttribute("predictionSanteChoisie");
-            Prediction predictionTravail = (Prediction) requete.getAttribute("predictionTravailChoisie");
+            Prediction predictionAmour = (Prediction) session.getAttribute("predictionAmourChoisie");
+            Prediction predictionSante = (Prediction) session.getAttribute("predictionSanteChoisie");
+            Prediction predictionTravail = (Prediction) session.getAttribute("predictionTravailChoisie");
             if (requete.getParameter("selectMedium") != null)
             {
                 String nomMedium = (String) requete.getParameter("selectMedium");
@@ -114,14 +117,18 @@ public class DisplayHoroscope extends Action
                 Client leClient = (Client) session.getAttribute("leClient");
                 
                 // Création de l'horoscope
-                Horoscope newHoroscope = new Horoscope (leClient, leMedium, predictionAmour, predictionSante, predictionTravail);
-                requete.setAttribute("nouvelHoroscope", newHoroscope);
+                Horoscope newHoroscope = new Horoscope (leClient, leMedium, (PredictionAmour) predictionAmour, (PredictionSante) predictionSante, (PredictionTravail) predictionTravail);
+                session.setAttribute("nouvelHoroscope", newHoroscope);
                 
                 // récupération du corps de l'horoscope
-                String corpsNewHo = newHoroscope.CorpsHoroscope();
-                requete.setAttribute("corpsHo", corpsNewHo);
+                corpsNewHo = newHoroscope.CorpsHoroscope();
             }
+            else
+                corpsNewHo = "Veuillez sélectionner un médium avant de créer votre horoscope !";
         }
+        else
+            corpsNewHo = "Veuillez sélectionner une prédiction pour chaque élément avant de créer votre horoscope !";
+        requete.setAttribute("corpsHo", corpsNewHo);
     }
     
     /**
@@ -143,7 +150,7 @@ public class DisplayHoroscope extends Action
     public String precedentPossible ()
     {
         String possible = null;
-        if (positionCourante > 1)
+        if (positionCourante > 0)
             possible = "oui";
         return possible;
     }

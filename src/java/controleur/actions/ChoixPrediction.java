@@ -22,10 +22,13 @@ public class ChoixPrediction extends Action
     @Override
     public void execute(HttpServletRequest requete) 
     {
-        String forcePrediction = requete.getParameter("predictionAmourForce");
-        if (forcePrediction != null)
+        String forcePredictionAmour = requete.getParameter("predictionAmourForce");
+        String forcePredictionSante = requete.getParameter("predictionSanteForce");
+        String forcePredictionTravail = requete.getParameter("predictionTravailForce");
+        if (forcePredictionAmour != null)
         {
-            int forceChoisiInt = Integer.parseInt (forcePrediction);
+            int forceChoisiInt = Integer.parseInt (forcePredictionAmour);
+            
             Prediction predictionChoisie = service.ChercherPredictionParId(350);
             List<Prediction> listPredict = new ArrayList<Prediction>();
             listPredict.add(predictionChoisie);
@@ -51,6 +54,25 @@ public class ChoixPrediction extends Action
             
             
             //requete.setAttribute("listePredictAmour", listPredict);*/
+        }
+        if (forcePredictionSante != null)
+        {
+            int forceChoisiInt = Integer.parseInt (forcePredictionSante);
+            
+            Prediction predictionChoisie = service.ChercherPredictionParId(210);
+            List<Prediction> listPredict = new ArrayList<Prediction>();
+            listPredict.add(predictionChoisie);
+            requete.setAttribute("listePredictSante", listPredict);
+        }
+        
+        if (forcePredictionTravail != null)
+        {
+            int forceChoisiInt = Integer.parseInt (forcePredictionTravail);
+            
+            Prediction predictionChoisie = service.ChercherPredictionParId(60);
+            List<Prediction> listPredict = new ArrayList<Prediction>();
+            listPredict.add(predictionChoisie);
+            requete.setAttribute("listePredictTravail", listPredict);
         }
     }
     

@@ -72,7 +72,7 @@ public class ActionServlet extends HttpServlet {
                 // Vérification si on a cliqué sur les boutons suivant ou précédent sur la page de traitement
                 // du client afin de récupérer la session de traitement en cours.
                 if ("HoroscopeSuivant".equals(tache) || "HoroscopePrecedent".equals(tache) || "AfficherHoroscopeCree".equals(tache))
-                    action = (Action) session.getAttribute("instanceTraitementClient");
+                    action = (Action) session.getAttribute("instanceDisplayHo");
                 else
                     action = this.getAction(tache);
                 
@@ -86,7 +86,7 @@ public class ActionServlet extends HttpServlet {
                     request.setAttribute("clientCoché", unchecked);
                 }
                 if ("AfficherDernierHoroscope".equals(tache))
-                    session.setAttribute("instanceTraitementClient", action);
+                    session.setAttribute("instanceDisplayHo", action);
                 
                 action.setServiceMetier(this.getServiceMetier());
                 
@@ -153,7 +153,7 @@ public class ActionServlet extends HttpServlet {
         {
             action = new DisplayHoroscope();
         }
-        else if ("AfficherPredictionAmour".equals(todo))
+        else if ("AfficherPrediction".equals(todo))
         {
             action = new CreationHoroscope();
         }
@@ -220,7 +220,7 @@ public class ActionServlet extends HttpServlet {
         {
             vue = "VueTraitementClient.jsp";
         }
-        else if ("AfficherPredictionAmour".equals(todo))
+        else if ("AfficherPrediction".equals(todo))
         {
             vue = "VueTraitementClient.jsp";
         }

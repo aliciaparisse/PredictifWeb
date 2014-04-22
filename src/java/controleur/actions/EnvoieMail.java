@@ -23,7 +23,7 @@ public class EnvoieMail extends Action
     {
         HttpSession session = (HttpSession) requete.getAttribute("sessionOuverte");
         
-        if (requete.getAttribute("nouvelHoroscope") != null)
+        if (session.getAttribute("nouvelHoroscope") != null)
         {
             // Récupération du nouvel Horoscope associé au client
             Horoscope newHoroscope = (Horoscope) requete.getAttribute("nouvelHoroscope");
